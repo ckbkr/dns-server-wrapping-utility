@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="DNSUpdate:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/DNSUpdate_jar</output-path>
+    <root id="archive" name="DNSUpdate.jar">
+      <element id="module-output" name="DNSUpdate" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,19 @@
+Doku SSL Client Authentification:
+
+In the trust store you can find the allowed client certificates
+
+In the key store you can find the private/public key pair of the client it was made for
+
+to generate:
+
+// Client and Server key generation
+keytool -genkeypair -keyalg RSA -keysize 3072 -validity 36500 -keystore KSLukas -alias lukas
+keytool -genkeypair -keyalg RSA -keysize 3072 -validity 36500 -keystore KSServer -alias server
+
+// Client and Server Cert exporting
+keytool -export -alias server -keystore KSServer -rfc -file server.cer
+keytool -export -alias lukas -keystore KSLukas -rfc -file lukas.cer
+
+// Generate Trust store and import certificates
+keytool -import -alias server -file server.cer  -keystore TSCerts
+keytool -import -alias lukas -file lukas.cer  -keystore TSCerts
