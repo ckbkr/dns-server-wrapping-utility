@@ -17,17 +17,27 @@ public class ServerMain {
 
         DateFormat dateFormat = new SimpleDateFormat("[yyyy/MM/dd HH:mm:ss]");
 
-        int port = 15020;
+        if ( args.length < 4 ){
+            System.out.println("Usage: java -jar DNSUpdate.jar port CertName CertPass KeyStoreName KeyStorePass");
+            return;
+        }
+
+        int port = Integer.decode(args[0]);
+
+        String sCerts = args[1];
+        String sCertsPass = args[2];
+        String sKeyStore = args[3];
+        String sKeyStorePass = args[4];
 
         KeyStore trustStore = KeyStore.getInstance("JKS");
         TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
-        trustStore.load(new FileInputStream("TSCerts"), "Lukas1990".toCharArray());
+        trustStore.load(new FileInputStream(sCerts), sCertsPass.toCharArray());
         trustManagerFactory.init(trustStore);
 
         KeyStore keyStore = KeyStore.getInstance("JKS");
         KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
-        keyStore.load(new FileInputStream("KSServer"), "Lukas1990".toCharArray());
-        keyManagerFactory.init(keyStore, "Lukas1990".toCharArray());
+        keyStore.load(new FileInputStream(sKeyStore), sKeyStorePass.toCharArray());
+        keyManagerFactory.init(keyStore, sKeyStorePass.toCharArray());
 
         SSLContext context = SSLContext.getInstance("TLS");
         context.init(keyManagerFactory.getKeyManagers(), trustManagerFactory.getTrustManagers(), new SecureRandom());

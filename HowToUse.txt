@@ -1,1 +1,1 @@
-java -jar DNSClient.jar KSNAME
+java -jar DNSClient.jar KSPanda
